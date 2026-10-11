@@ -66,7 +66,7 @@ The demo does not include his name, biography, credentials, availability, testim
 All editable content lives in **`js/content.js`**:
 
 - **Branding:** `brand.handle` and `brand.wordmark` (the header and footer read these).
-- **Pricing and lesson format:** `liveLesson` (`durationLabel`, `priceLabel`, `priceNote`, `packageNote`).
+- **Pricing and lesson format:** `liveLesson` (`durationLabel`, `priceLabel`, `priceNote`).
 - **Home copy and the proposed process:** `home`.
 - **Home photo:** set `homeMedia.src` and `homeMedia.alt` to approved media. This replaces the placeholder tile.
 - **Request options:** `request.goals`, `request.levels`, `request.days`, `request.windows` and `request.nextSteps`.

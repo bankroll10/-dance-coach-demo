@@ -15,8 +15,7 @@ export const liveLesson = {
   durationLabel: 'About 60 minutes',
   priceLabel: '$30–$40',
   priceUnit: 'per single lesson',
-  priceNote: 'This range reflects the coach’s current reported pricing. Final pricing would be confirmed with him.',
-  packageNote: 'Lesson packages bring the per-lesson price down. Package details would come from the coach.',
+  priceNote: 'Final lesson price confirmed with the coach. Package discounts are available.',
 };
 
 export const home = {
@@ -33,16 +32,16 @@ export const home = {
     { title: 'Pick preferred times', text: 'Choose the days and times of day that suit you, in your own time zone.' },
     { title: 'Arrange the details', text: 'The coach follows up to settle the time, price and payment with you.' },
   ],
-  recordedTitle: 'Recorded lessons, too',
-  recordedText: 'He also has prerecorded lessons. Here’s one way a guided beginner course could feel — practice at your own pace, then bring questions to a live lesson.',
+  recordedTitle: 'Practice at your own pace',
+  recordedText: 'Explore a sample lesson sequence and see how learning between live sessions could work.',
 };
 
 // Home media slot. Set `src` (and `alt`) once approved coach media is supplied.
 export const homeMedia = {
   src: null,
   alt: '',
-  placeholderLabel: 'Photo placeholder',
-  placeholderNote: 'Approved coach media pending',
+  placeholderLabel: 'Your photo or video here',
+  placeholderNote: 'We’ll add the media you choose.',
 };
 
 export const request = {

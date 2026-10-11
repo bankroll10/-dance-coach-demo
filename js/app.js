@@ -210,7 +210,7 @@ function viewHome() {
             <dd>${esc(liveLesson.priceLabel)} <span class="fact-unit">${esc(liveLesson.priceUnit)}</span></dd>
           </div>
         </dl>
-        <p class="fine-print">${esc(liveLesson.priceNote)} ${esc(liveLesson.packageNote)}</p>
+        <p class="fine-print">${esc(liveLesson.priceNote)}</p>
       </section>
 
       <section class="wrap band process" aria-labelledby="process-title">
@@ -334,7 +334,7 @@ function viewRequest(n) {
         ${summaryRow('Times of day', labelsFor(req.windows, s.windows), stepHash(2), 'times of day')}
         ${summaryRow('Time zone', timeZoneText)}
         ${summaryRow('Lesson', `Private lesson · ${liveLesson.durationLabel.toLowerCase()} · ${liveLesson.format}`)}
-        ${summaryRow('Price', `${liveLesson.priceLabel} ${liveLesson.priceUnit}, confirmed with the coach`)}
+        ${summaryRow('Price', `${liveLesson.priceLabel} ${liveLesson.priceUnit}; final price to be confirmed.`)}
       </dl>
       <fieldset class="field contact" disabled>
         <legend>Contact details ${tag('Fictional')}</legend>
@@ -531,7 +531,7 @@ function viewLesson(lesson) {
         <div class="video-motif" aria-hidden="true">${'<span></span>'.repeat(8)}</div>
         <figcaption>
           ${tag('Video placeholder', 'tag-on-dark')}
-          <span>A coach-recorded lesson would appear here once approved recordings are supplied.</span>
+          <span>Your recorded lesson would play here.</span>
         </figcaption>
       </figure>`;
 
@@ -558,7 +558,7 @@ function viewLesson(lesson) {
           ${video}
           <div class="instruction">
             <h2 class="section-title small-title">Coach’s instruction</h2>
-            <p class="placeholder-text">${tag('Placeholder')} Written cues and notes from the coach would go here.</p>
+            <p class="placeholder-text">${tag('Placeholder')} Add your teaching notes and practice tips here.</p>
             <p class="focus-line"><span class="focus-label">Sample focus</span> ${esc(lesson.focus)}</p>
           </div>
           <div class="lesson-actions">
