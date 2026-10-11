@@ -1,8 +1,10 @@
-# -dance-coach-demo
+# Dance with JSPR
 
-Mobile-first interactive concept demo of a learning and lesson-request site for the independent dance coach **@jspr_dances**.
+A small, mobile-first website for private dance lessons with **@jspr_dances**. Visitors choose a 30-minute ($30 USD) or 60-minute ($40 USD) lesson and are sent to a coach-owned Tally form. Everything after the request (calendar check, PayPal invoice, payment check, confirmation) is done by hand by the coach. See [`docs/pilot-operations.md`](docs/pilot-operations.md).
 
-It's a static website: it opens in any modern browser with nothing to install, no sign-up and no payment. Everything is mock data. Nothing a visitor does is sent anywhere.
+It's a static site: plain HTML, CSS and vanilla JavaScript, with no build step, backend, accounts, analytics or payment code.
+
+> **Status: pilot preparation. Not deployed.** Until real form links are added, every request button shows a "Preview only" state and sends nothing.
 
 ## Run it locally
 
@@ -10,81 +12,39 @@ It's a static website: it opens in any modern browser with nothing to install, n
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000>. The scripts are ES modules, so open the site through a local server like this, not by double-clicking `index.html`.
+Open <http://localhost:8000>. The scripts are ES modules, so use a local server rather than opening `index.html` directly.
 
-## What's in the demo
+## How the request buttons behave
 
-| View | Route | What it shows |
-| --- | --- | --- |
-| Home | `#/` | Intro, the confirmed live-lesson details, a proposed request process, and a teaser for recorded lessons |
-| Lesson request | `#/request`, `#/request/2`, `#/request/3` | Three steps: goal and experience, preferred days and times of day, then review |
-| Request preview | `#/request/preview` | "Demo request — not sent." with the answers, fictional contact details, and what would happen in a working version |
-| Sample course | `#/lessons`, `#/lessons/<id>` | A sample four-lesson beginner course with a lesson view, practice tracking and a link to request a lesson |
+Each lesson option has its own setting in `js/content.js`:
 
-A compact **Interactive demo** button in the header (and "About this demo" in the footer) opens a dialog explaining what is simulated.
+```js
+export const requestForms = { '30': '', '60': '' };
+```
 
-### What works
+- **Empty or invalid** (anything that isn't a well-formed `https://` URL): the button opens a "Preview only" dialog, the card says "Preview only — request form not connected yet", and a "Preview only" indicator shows in the header. Nothing is sent, and no link goes anywhere.
+- **A valid `https://` Tally URL**: the button becomes a normal link that opens the coach's form in a new tab. When both options have links, the preview indicator disappears.
 
-- Hash routing with direct links, refresh, browser back/forward, a not-found view and an unknown-lesson view. Focus moves to the page heading after each navigation.
-- Required-choice validation with inline, announced errors. Answers are kept when moving back and forward.
-- Detected time zone, with an "unavailable" message if the browser can't provide one.
-- Edit request (keeps answers) and Start over (clears them). Opening the preview without a completed request shows a route back to the form.
-- Mark practiced, Next lesson, an end-of-course state, course progress and reset.
-- Keyboard support, a visible focus ring, an accessible dialog (Escape closes it and focus returns to the button that opened it), and reduced-motion support.
+Both options can point at the same URL if one form has a lesson field.
 
-### What is simulated
+## Where to edit things
 
-- **Lesson requests.** Nothing is sent, stored on a server or charged. Request answers live only in page memory, so a reload clears them. Contact fields are fictional ("Alex Sample") and disabled. The demo never collects real contact details.
-- **Course and lessons.** The curriculum, titles, order and "sample focus" lines are illustrative. Video and coach-instruction areas are labeled placeholders, with no fake player controls.
-- **Practice progress.** Only completed lesson IDs are saved, in this browser's `localStorage`. If storage is blocked, progress still works for the visit, and a note says it won't be saved.
+All in **`js/content.js`**: site name and handle, the lesson options and prices, the form links, the home and process copy, and the optional home photo (`homeMedia.src` and `alt`). Colours and fonts are CSS variables at the top of `styles.css`.
 
-There is no backend, no accounts, no analytics and no third-party JavaScript. The only external resource is the Google Fonts stylesheet for the display typeface ("Bricolage Grotesque"). The page falls back to system fonts if it can't load.
+**This file ships to every visitor.** Never put the coach's notification email, his legal name, agreement or revenue-share terms, or any credentials in it. This repository is public, so keep them out of every file here. Use a private note instead.
 
-## Confirmed facts vs. provisional choices
+## Publishing the site files
 
-**Confirmed by the coach:**
+```sh
+./scripts/stage-demo.sh   # copies only index.html, styles.css and js/ into dist/ (gitignored)
+```
 
-- He primarily teaches through FaceTime.
-- Lessons usually last about one hour.
-- Single lessons currently cost $30–$40.
-- Packages reduce the per-lesson price. The terms are unknown, so none are shown.
-- He has some prerecorded lessons. They have not been received or reviewed.
-- He welcomes seeing a demo. There is no paid-development or revenue-sharing agreement.
+Docs, scripts, git data and `docs/` are never copied. `netlify.toml` points at `dist/`. Deployment needs explicit authorization. The site is marked `noindex` until a launch decision is made.
 
-**Provisional (choices made for the demo):**
+## What's not here
 
-- The identity uses the public handle @jspr_dances. The product name is undecided.
-- The three-step request process ("share goals → pick preferred times → arrange details with the coach") is a proposal.
-- The sample course "First Steps" and its four lesson titles are illustrative.
-- The wording on "what would happen next" is a proposal. It deliberately makes no promise about when payment happens.
-- The colours, type and layout are a starting point.
-
-The demo does not include his name, biography, credentials, availability, testimonials, package terms or business policies.
-
-## Where to update things
-
-All editable content lives in **`js/content.js`**:
-
-- **Branding:** `brand.handle` and `brand.wordmark` (the header and footer read these).
-- **Pricing and lesson format:** `liveLesson` (`durationLabel`, `priceLabel`, `priceNote`).
-- **Home copy and the proposed process:** `home`.
-- **Home photo:** set `homeMedia.src` and `homeMedia.alt` to approved media. This replaces the placeholder tile.
-- **Request options:** `request.goals`, `request.levels`, `request.days`, `request.windows` and `request.nextSteps`.
-- **Course and lessons:** `course.lessons`. Set a lesson's `videoSrc` to an approved recording, and a real `<video controls>` replaces the placeholder.
-- **About dialog text:** `about`.
-
-Visual tokens (colours, fonts, spacing) are CSS custom properties at the top of **`styles.css`**.
-
-Don't download or republish the coach's social videos. Use only media he supplies and approves.
+Recorded courses (deferred), payments, a booking calendar, a backend, and an email sender. The site never collects personal details: the Tally form, owned by the coach, does that.
 
 ## Remaining decisions before launch
 
-1. The product name, and approval of the branding, photos, bio and copy.
-2. Package terms, plus any final adjustment to the $30–$40 single-lesson price.
-3. How lessons are scheduled and how availability and time zones are handled.
-4. How payment is collected and when, plus cancellation and refund policies.
-5. How lesson requests should reach the coach (email, DM, a scheduling tool).
-6. Which prerecorded lessons to include, their rights, how they're hosted, and whether access is paid.
-7. A privacy notice and terms for any real student data.
-8. How this site relates to his existing Patreon and studio booking pages.
-9. Hosting and domain. The site is deployable as static files, but deployment is out of scope for this batch.
+The full list is in section 7 of [`docs/pilot-operations.md`](docs/pilot-operations.md): availability, response target, payment deadline, cancellation and rescheduling policy, meeting platform, permission for a public contact email, the final agreement, the Tally form URLs, a privacy notice, and a home photo.

@@ -1,27 +1,32 @@
 # CLAUDE.md
 
-Interactive concept demo for the dance coach @jspr_dances: a home page, a simulated lesson-request flow, a request preview, and a sample recorded course. It uses mock data only.
+Dance with JSPR: a static, mobile-first site for private dance lessons with @jspr_dances. Visitors pick a 30- or 60-minute lesson and are sent to a coach-owned Tally form. The coach handles approval, PayPal invoicing and confirmation by hand (see `docs/pilot-operations.md`).
 
 ## Run
 
 ```sh
 python3 -m http.server 8000   # then open http://localhost:8000
+./scripts/stage-demo.sh       # stage only the public files into dist/ (gitignored)
 ```
 
 There is no build step and no dependencies. The JS files are ES modules (`js/app.js` imports `js/content.js`).
 
 ## Layout
 
-- `index.html`: shell (header, demo indicator, footer, About dialog).
+- `index.html`: shell (header, preview-only indicator and dialog, footer).
 - `styles.css`: design tokens on `:root`, then the components.
-- `js/content.js`: **all** copy, coach details, provisional pricing and sample lessons. Edit here first.
-- `js/app.js`: hash router, the request-flow state (in memory only), practice progress (`localStorage`), and the dialog.
+- `js/content.js`: **all** copy, lesson options and prices, and the Tally form URLs (`requestForms`). Edit here first.
+- `js/app.js`: renders the page, decides link vs. preview-only for each lesson option, and runs the dialog.
+- `docs/pilot-operations.md`: internal operations guide. Never staged for deploy.
 
 ## Ground rules
 
 - Keep it lightweight: static HTML/CSS/vanilla JS. Don't add a framework, build tooling, or npm dependencies without a clear need.
-- No `fetch`, form actions, analytics, or third-party scripts. The Google Fonts stylesheet is the only external resource.
-- Never collect real personal data. Request answers stay in memory, and contact fields are fictional and disabled.
-- Don't invent the coach's name, bio, credentials, availability, testimonials, package terms or policies. Label sample content and placeholder media.
+- The public repository and everything in `js/` ship to visitors. **Never commit** the coach's notification email, his legal/agreement name, revenue-share terms, student data, or credentials, in code or docs. Use placeholders.
+- No `fetch`, form actions, analytics, or third-party scripts. The Google Fonts stylesheet is the only external resource. The only outbound navigation is the visitor following a configured Tally link.
+- A request button must never lead to a dead link or collect details on this site. With no valid `https://` form URL it stays in its explicit "Preview only" state.
+- Don't imply instant booking, payment collection, or automatic confirmation. Sending a request is not a booking.
+- Don't invent the coach's bio, credentials, availability, testimonials or policies. Mark unresolved details `[TBD]` in docs.
 - Use "Request a lesson", never "Book".
-- Backend services, real bookings, real payments and deployment each need explicit authorization in a later batch.
+- Recorded courses are deferred: don't advertise them.
+- Backend services, real payments, new accounts, live forms, and deployment each need explicit authorization.

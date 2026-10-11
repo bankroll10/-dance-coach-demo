@@ -6,8 +6,8 @@
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#fbf4e9">
   <meta name="robots" content="noindex">
-  <title>Learn to dance · @jspr_dances (demo)</title>
-  <meta name="description" content="Interactive concept demo: private FaceTime dance lessons and a sample beginner course.">
+  <title>Dance with JSPR · Private dance lessons</title>
+  <meta name="description" content="Private one-on-one video dance lessons with @jspr_dances. Request a 30- or 60-minute lesson.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap">
@@ -19,41 +19,40 @@
 
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="wordmark" href="#/" aria-label="jspr_dances, home">
-        <span class="wordmark-at" aria-hidden="true">@</span><span data-brand="wordmark">jspr_dances</span>
+      <a class="wordmark" href="#top" aria-label="Dance with JSPR, @jspr_dances, top of page">
+        <span class="wordmark-text">
+          <span data-brand="siteName">Dance with JSPR</span>
+          <span class="wordmark-handle" data-brand="handle">@jspr_dances</span>
+        </span>
       </a>
       <nav class="site-nav" aria-label="Main">
-        <a href="#/request" data-nav="request">Request a lesson</a>
-        <a href="#/lessons" data-nav="lessons">Sample lessons</a>
+        <a href="#lessons">Lessons</a>
+        <a href="#how-it-works">How it works</a>
       </nav>
-      <button type="button" class="demo-pill" id="about-open" aria-haspopup="dialog" aria-controls="about-dialog">
-        <span class="demo-dot" aria-hidden="true"></span>Interactive demo
+      <button type="button" class="preview-pill" id="preview-pill" aria-haspopup="dialog" aria-controls="preview-dialog" hidden>
+        <span class="preview-dot" aria-hidden="true"></span>Preview only
       </button>
     </div>
   </header>
 
-  <main id="main" class="site-main">
+  <main id="main" class="site-main" tabindex="-1">
     <noscript>
-      <div class="wrap noscript">This demo needs JavaScript turned on to run.</div>
+      <div class="wrap noscript">This page needs JavaScript turned on to run.</div>
     </noscript>
   </main>
 
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <p>Concept demo prepared for <span data-brand="handle">@jspr_dances</span>.</p>
-      <button type="button" class="link-button" data-about-open>About this demo</button>
+      <p><span data-brand="siteName">Dance with JSPR</span> · <span data-brand="handle">@jspr_dances</span></p>
     </div>
   </footer>
 
-  <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-
-  <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+  <dialog id="preview-dialog" class="about-dialog" aria-labelledby="preview-title">
     <div class="dialog-body">
-      <p class="eyebrow">Interactive demo</p>
-      <h2 id="about-title">About this demo</h2>
-      <ul id="about-points" class="about-points"></ul>
-      <p id="about-footnote" class="muted small"></p>
-      <button type="button" class="button button-primary" id="about-close">Got it</button>
+      <p class="eyebrow" id="preview-choice" hidden></p>
+      <h2 id="preview-title">Preview only</h2>
+      <ul id="preview-points" class="about-points"></ul>
+      <button type="button" class="button button-primary" id="preview-close">Got it</button>
     </div>
   </dialog>
 </body>
