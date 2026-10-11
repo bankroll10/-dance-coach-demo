@@ -1,6 +1,6 @@
 # Dance with JSPR
 
-A small, mobile-first website for private dance lessons with **@jspr_dances**. Visitors choose a 30-minute ($30 USD) or 60-minute ($40 USD) lesson and are sent to a coach-owned Tally form. Everything after the request (calendar check, PayPal invoice, payment check, confirmation) is done by hand by the coach. See [`docs/pilot-operations.md`](docs/pilot-operations.md).
+A small, mobile-first website for private dance lessons with **@jspr_dances**. Visitors choose a 30-minute ($30 USD) or 60-minute ($40 USD) lesson and are sent to a coach-owned Tally form. Everything after the request (calendar check, PayPal invoice, payment check, confirmation) is done by hand by the coach. See [`docs/pilot-operations.md`](docs/pilot-operations.md) for the operating guide and [`docs/request-form-spec.md`](docs/request-form-spec.md) for the form specification (a spec only; no form is live).
 
 It's a static site: plain HTML, CSS and vanilla JavaScript, with no build step, backend, accounts, analytics or payment code.
 
@@ -49,4 +49,4 @@ Recorded courses (deferred), payments, a booking calendar, a backend, and an ema
 
 ## Remaining decisions before launch
 
-The full list is in section 7 of [`docs/pilot-operations.md`](docs/pilot-operations.md): availability, response target, payment deadline, cancellation and rescheduling policy, meeting platform, permission for a public contact email, the final agreement, the Tally form URLs, a privacy notice, and a home photo.
+The list is in section 6 of [`docs/pilot-operations.md`](docs/pilot-operations.md): the coach-owned Tally forms and their URLs, an approved privacy notice, any answers to the "not specified" policy items, a public contact route (only if approved), the final agreement, launch approval, and a home photo.

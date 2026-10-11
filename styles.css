@@ -442,6 +442,27 @@ html { scroll-padding-top: 12px; }
 
 .process-note { margin-top: 0; margin-bottom: 0; color: var(--plum-soft); max-width: 62ch; font-weight: 600; }
 
+/* ---------- before you request ---------- */
+.policies {
+  display: grid;
+  gap: 14px;
+  margin-top: 1.25rem;
+}
+.policy-group {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.25rem 1.2rem;
+}
+.policy-group h3 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+.policy-group ul { margin: 0; padding-left: 1.15rem; display: grid; gap: 0.5rem; }
+.policy-group li::marker { color: var(--terracotta); }
+.policy-group li { font-size: 0.9875rem; }
+
+@media (min-width: 900px) {
+  .policies { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+}
+
 /* ---------- how it works ---------- */
 .process-list {
   list-style: none;

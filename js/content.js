@@ -41,12 +41,41 @@ export const home = {
 
   previewState: 'Preview only — requests aren’t open yet',
 
+  // Confirmed by the coach. Keep wording faithful: don't add terms he hasn't stated
+  // (no reschedule expiry, no definition of "late", no technical-failure rules).
+  beforeTitle: 'Before you request',
+  beforeGroups: [
+    {
+      title: 'When lessons run',
+      items: [
+        'Monday–Saturday. No Sundays.',
+        'Lessons start between 8 a.m. and 5 p.m. Pacific Time.',
+        'Please request at least 48 hours ahead.',
+      ],
+    },
+    {
+      title: 'Ages and guardians',
+      items: [
+        'Students must be 4 or older.',
+        'For anyone under 18, a parent or guardian handles the request, payment and communication, and is present during the lesson.',
+      ],
+    },
+    {
+      title: 'Cancelling and rescheduling',
+      items: [
+        'One reschedule is allowed with at least 24 hours’ notice.',
+        'Late cancellations and no-shows are nonrefundable.',
+        'If the coach cancels, you can choose another time or a refund.',
+      ],
+    },
+  ],
+
   processTitle: 'How it works',
   processTimeZone: 'The coach works in Pacific Time. Your request form asks you to confirm your own time zone, so proposed times are always clear.',
   process: [
-    { title: 'Send a request', text: 'Pick a lesson length and share two times that could work for you.' },
-    { title: 'The coach replies', text: 'He checks his calendar, then emails to approve a time or suggest another.' },
-    { title: 'Receive an invoice', text: 'Once a time is agreed, he sends you a PayPal invoice for the lesson.' },
+    { title: 'Send a request', text: 'Pick a lesson length and share two times that could work, at least 48 hours ahead.' },
+    { title: 'The coach replies', text: 'He checks his calendar and emails you within 24 hours to approve a time or suggest another.' },
+    { title: 'Receive an invoice', text: 'After he approves a time, he sends you a PayPal invoice. Payment is due within 24 hours of approval.' },
     { title: 'Get your confirmation', text: 'After he sees your payment, he emails your confirmation and joining instructions.' },
   ],
 };

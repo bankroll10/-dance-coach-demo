@@ -17,7 +17,8 @@ There is no build step and no dependencies. The JS files are ES modules (`js/app
 - `styles.css`: design tokens on `:root`, then the components.
 - `js/content.js`: **all** copy, lesson options and prices, the launch flag (`bookingEnabled`) and the Tally form URLs (`requestForms`). Edit here first.
 - `js/app.js`: renders the page, decides link vs. preview-only for each lesson option, and runs the dialog.
-- `docs/pilot-operations.md`: internal operations guide. Never staged for deploy.
+- `docs/pilot-operations.md`: internal operations guide (confirmed policies, emails, ledger, manual steps). Never staged for deploy.
+- `docs/request-form-spec.md`: specification for the coach-owned Tally forms. A spec only; no form is live.
 
 ## Ground rules
 
@@ -27,7 +28,7 @@ There is no build step and no dependencies. The JS files are ES modules (`js/app
 - A request button must never lead to a dead link or collect details on this site. It becomes a real link only when `bookingEnabled === true` AND the URL is https on exactly `tally.so` (no credentials, no port). Otherwise it stays "Preview only". Never set `bookingEnabled` to `true` without explicit authorization.
 - Don't imply instant booking, payment collection, or automatic confirmation. Sending a request is not a booking.
 - Don't invent the coach's bio, credentials, availability, testimonials or policies, and don't publish an unapproved draft (e.g. cancellation/refund terms) as final. Mark unresolved details `[TBD]` in docs. Lessons are FaceTime only: don't advertise other platforms.
-- Don't add children's data fields or child-directed flows until age and guardian rules are decided.
+- Student-facing policies (days, start times, ages, guardian rules, cancellation/rescheduling) are confirmed. Keep the page, the form spec and the email templates identical in meaning, and don't add terms the coach hasn't stated. This site collects nothing from minors or anyone else; the only child information the form spec asks for is an age band, in the coach's Tally form.
 - Use "Request a lesson", never "Book".
 - Recorded courses are deferred: don't advertise them.
 - Backend services, real payments, new accounts, live forms, and deployment each need explicit authorization.

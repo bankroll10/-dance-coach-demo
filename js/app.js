@@ -91,6 +91,17 @@ function render() {
         <p class="fine-print">${esc(home.optionsNote)}</p>
       </section>
 
+      <section class="wrap band" id="before-you-request" aria-labelledby="before-title">
+        <h2 id="before-title" class="section-title">${esc(home.beforeTitle)}</h2>
+        <div class="policies">
+          ${home.beforeGroups.map((group) => `
+            <div class="policy-group">
+              <h3>${esc(group.title)}</h3>
+              <ul>${group.items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
+            </div>`).join('')}
+        </div>
+      </section>
+
       <section class="wrap band process" id="how-it-works" aria-labelledby="process-title">
         <div class="section-head">
           <h2 id="process-title" class="section-title">${esc(home.processTitle)}</h2>
