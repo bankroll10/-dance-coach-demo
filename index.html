@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbf4e9">
+  <meta name="robots" content="noindex">
+  <title>Learn to dance · @jspr_dances (demo)</title>
+  <meta name="description" content="Interactive concept demo: private FaceTime dance lessons and a sample beginner course.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#/" aria-label="jspr_dances, home">
+        <span class="wordmark-at" aria-hidden="true">@</span><span data-brand="wordmark">jspr_dances</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#/request" data-nav="request">Request a lesson</a>
+        <a href="#/lessons" data-nav="lessons">Sample lessons</a>
+      </nav>
+      <button type="button" class="demo-pill" id="about-open" aria-haspopup="dialog" aria-controls="about-dialog">
+        <span class="demo-dot" aria-hidden="true"></span>Interactive demo
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="site-main">
+    <noscript>
+      <div class="wrap noscript">This demo needs JavaScript turned on to run.</div>
+    </noscript>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>Concept demo prepared for <span data-brand="handle">@jspr_dances</span>.</p>
+      <button type="button" class="link-button" data-about-open>About this demo</button>
+    </div>
+  </footer>
+
+  <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+    <div class="dialog-body">
+      <p class="eyebrow">Interactive demo</p>
+      <h2 id="about-title">About this demo</h2>
+      <ul id="about-points" class="about-points"></ul>
+      <p id="about-footnote" class="muted small"></p>
+      <button type="button" class="button button-primary" id="about-close">Got it</button>
+    </div>
+  </dialog>
+</body>
+</html>
