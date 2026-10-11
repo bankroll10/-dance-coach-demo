@@ -1,0 +1,5 @@
+# Netlify local link state (never commit)
+.netlify/
+
+# Generated deploy output
+/dist/
