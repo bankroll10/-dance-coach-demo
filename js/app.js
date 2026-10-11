@@ -1,4 +1,4 @@
-import { brand, requestForms, lessons, home, homeMedia, preview } from './content.js';
+import { brand, bookingEnabled, requestForms, lessons, home, homeMedia, preview } from './content.js';
 
 const main = document.getElementById('main');
 
@@ -7,17 +7,31 @@ const esc = (value) => String(value).replace(/[&<>"']/g, (c) => ESCAPES[c]);
 
 /* ---------- request form links ---------- */
 
-// Only a well-formed https URL counts as "connected". Anything else keeps the
-// option in its preview-only state, so a visitor is never sent to a dead link.
-function formUrl(lessonId) {
-  const raw = (requestForms[lessonId] ?? '').trim();
-  if (!raw) return null;
+const FORM_HOST = 'tally.so';
+
+// A form URL is valid only if it parses as https on exactly tally.so, with no
+// embedded credentials and no custom port. Parsing (not string matching) rules out
+// lookalikes such as tally.so.example.com, example.com/tally.so or tally.so@evil.com.
+function validFormUrl(raw) {
+  if (typeof raw !== 'string' || !raw.trim()) return null;
   try {
-    const url = new URL(raw);
-    return url.protocol === 'https:' && url.hostname ? url.href : null;
+    const url = new URL(raw.trim());
+    const ok = url.protocol === 'https:'
+      && url.hostname === FORM_HOST
+      && url.username === ''
+      && url.password === ''
+      && url.port === '';
+    return ok ? url.href : null;
   } catch {
     return null;
   }
+}
+
+// Real links need BOTH the explicit launch flag and a valid URL for that lesson.
+// Otherwise the option stays preview-only, so a visitor never reaches a dead link
+// and configuring URLs alone never opens requests.
+function formUrl(lessonId) {
+  return bookingEnabled === true ? validFormUrl(requestForms[lessonId]) : null;
 }
 
 const anyPreviewOnly = lessons.some((lesson) => !formUrl(lesson.id));
