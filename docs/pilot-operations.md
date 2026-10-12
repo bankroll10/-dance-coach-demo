@@ -58,7 +58,18 @@ The website stays preview-only until `bookingEnabled` is set to `true` in `js/co
 
 - The **coach owns the forms** and handles student requests and notifications. His Tally email notifications to himself are on.
 - **The operator** (who maintains the site) receives **payment summaries only**: no student names, no contact details and no children's age groups. The ledger in section 4 is built that way, and the coach shares only its student-free columns.
-- The site has `bookingEnabled = true` **on `feature/live-lesson-pilot` only**. It is not merged and not deployed, and it stays `noindex` until a launch decision.
+- The site has `bookingEnabled = true` on `feature/live-lesson-pilot`. It is **not merged to `main`**. It stays `noindex` (which is not access protection: anyone with the address can open the page). Where it is deployed, and the rollback target, are recorded in section 8.
+
+### Operational decisions (confirmed)
+
+1. **The coach owns the forms** and handles student requests through Tally and his own email.
+2. **PayPal invoicing is separate.** After the coach approves a time, he sends the invoice from his own PayPal account. Nothing on the website or in Tally takes payment.
+3. **The operator receives payment summaries only.** They contain **no student names, no contact details and no children's age groups**. The student-free ledger in section 4 is the source for them.
+4. **Public contact:** the coach-approved student/privacy contact is the address in the "Confirmed" table. It is not on the website.
+5. **Retention:** the 90-day decisions in section 6 stand as documented. For unbooked requests, **the start of the 90 days (the day the request was received) is still an assumption** and stays marked `[confirm]`.
+6. **Home photo:** optional for this pilot. The decorative graphic is used until one is supplied.
+
+Still **not** done or decided: the privacy notice has **not been legally reviewed** and is **not approved**; the policy questions under "Not specified" below are open, and no answers have been assumed.
 
 ### Verification status
 
@@ -249,10 +260,16 @@ Keep the ledger in a private, access-controlled sheet shared only with the parti
 | Item | Notes |
 | --- | --- |
 | **Compare the live forms with the spec** | A person opens both Tally forms and checks fields, wording, conditional guardian logic, age bands and policy text against `request-form-spec.md`. Also confirm the live titles and prices match (30 min, $30 USD / 60 min, $40 USD). |
-| **Approved privacy notice** | The draft in the form spec is **not ready to publish**. Retention and the public contact are now filled in; the owner's identity, Tally/PayPal details, who else sees summaries, and legal review for children are still open. The form's privacy checkbox (field 13) is added only after the notice is approved. |
+| **Approved privacy notice** | The draft in the form spec is **not ready to publish**, has **not been legally reviewed**, and is not approved. Retention and the public contact are filled in; the owner's identity, Tally/PayPal details, who else sees summaries, and legal review (including for children) are still open. The form's privacy checkbox (field 13) is added only after the notice is approved. |
 | **Where the privacy notice and contact appear** | The coach approved the email for public student/privacy contact. Whether and where to show it on the website (for example the footer or a privacy page) needs a specific instruction. |
 | **Answers to the "Not specified" items** (section 1) the coach wants applied | Late-cancellation cut-off, timely-cancellation refunds, reschedule details, technical problems, guardian absence, missed payment |
 | **Payment-record retention** | Where and for how long payment records are kept (section 6) |
-| **Launch decision and deployment** | The site is not merged or deployed and stays `noindex`. Deployment, removing `noindex`, and any merge are separate, explicitly authorized steps. |
+| **Launch decision** | Whether to announce, when to remove `noindex`, and any merge to `main` are separate, explicitly authorized steps. The deployment itself is recorded in section 8. |
 | **Final agreement** (including revenue share) | Needed before the ledger's adjustment column can be used. Kept outside this repository. |
-| **Home photo/video** | The home page uses a decorative graphic until one is supplied. |
+| **Home photo/video** | *Optional for this pilot.* The home page uses a decorative graphic until one is supplied. |
+
+---
+
+## 8. Deployment record
+
+*(Filled in when the pilot is deployed. Until then, nothing here is deployed.)*
