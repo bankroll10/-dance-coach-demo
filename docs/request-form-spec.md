@@ -1,8 +1,8 @@
 # Request form specification (Tally)
 
-**Specification only. No form exists yet, and none should be created, published or linked until launch is explicitly approved.** The website stays preview-only (`bookingEnabled = false`, empty form URLs) until then.
+**Status.** This is the specification the coach's forms were meant to follow. The coach has since created and published two forms in his own Tally account (30 minutes: `https://tally.so/r/dWLQaV`, 60 minutes: `https://tally.so/r/PdM81x`), and the site on `feature/live-lesson-pilot` links to them. Per the operator's report, labeled test submissions reached the coach in Tally and by email. **Whether the live forms match this document field by field has not been checked.** Compare them, and treat any difference as something to decide, not assume. This document is not itself a form and submits nothing.
 
-This is for the **coach-owned** Tally account. Nothing here is a live form, and this repository must never contain submissions, the coach's notification email, personal contact details, or credentials.
+This is for the **coach-owned** Tally account. This repository must never contain submissions, personal contact details, or credentials. The coach's email appears below only as the contact he has approved for public student/privacy use.
 
 **Needs verification.** The author has *not* verified Tally's current features, limits, pricing or data settings. Every item tagged **⚠ VERIFY** depends on a Tally capability that must be checked in the coach's account before relying on it. Don't assume a feature exists, works as described, or is free until you've seen it. If a capability is missing, use the stated fallback.
 
@@ -161,15 +161,15 @@ The coach, or the operator acting on his direction, does these. Never share acco
 - [ ] The coach creates or signs in to his own Tally account. **⚠ VERIFY** current plan and limits, including whether everything in this spec (conditional logic, hidden fields, custom thank-you page, notifications) is available on the plan he uses, and whether any of it costs money. Don't enable a paid plan without his explicit approval.
 - [ ] Build the 30-minute form from sections 2–4.
 - [ ] Duplicate it for the 60-minute form and change only `{{DURATION}}`, `{{PRICE}}` and the form name.
-- [ ] Set the **notification email** to the coach's private address (`[HELD OUTSIDE REPO]`). Confirm that the notification includes every answer and the form name. **⚠ VERIFY**
+- [ ] Set the **notification email** to the coach's own address. *(User-reported: the coach turned on self email notifications and received the test notifications.)* Still confirm that each notification includes every answer and the form name. **⚠ VERIFY**
 - [ ] Decide whether respondents get an emailed copy of their answers. **⚠ VERIFY** whether it's available. If it is, consider the privacy implications for minors' requests first.
 - [ ] Set the custom thank-you page from section 4. **⚠ VERIFY**
 - [ ] Review Tally's data-handling settings: where responses are stored, who can see them, how entries are exported and deleted. **⚠ VERIFY** and record the answers for the privacy notice. Check that Tally's own branding or tracking settings are acceptable to the coach.
 - [ ] Turn off any option that would add fields, uploads or integrations not in this spec.
-- [ ] Copy each form's public share link. Both must be `https://tally.so/...` (the site accepts **only** the host `tally.so`). If Tally gives a different address, such as a custom domain, the site will treat it as invalid and stay preview-only. Send the two links to the operator privately.
-- [ ] **Do not publish the forms or share the links publicly yet.** Keep them private until the end-to-end test passes and launch is approved.
+- [ ] Copy each form's public share link. Both must be `https://tally.so/...` (the site accepts **only** the host `tally.so`). If Tally gives a different address, such as a custom domain, the site will treat it as invalid and stay preview-only. (The two links are now recorded in `pilot-operations.md` and set in `js/content.js`.)
+- [ ] The forms are already published and the site on the feature branch links to them. Before the site is deployed or announced, compare the live forms with this spec and run the checklist in section 8.
 
-Nothing on the website changes until a later, explicitly authorized step sets the two URLs in `js/content.js` and flips `bookingEnabled` to `true`.
+Status of this checklist: the account, both forms, the notification setting and one labeled test per form are **user-reported as done**. The remaining items, such as conditional logic, the thank-you page, data settings, and the privacy checkbox, have not been checked here. Don't treat unchecked boxes as complete.
 
 ---
 
@@ -195,9 +195,14 @@ We do **not** ask for a child's email, date of birth, address, health informatio
 
 **Children.** Requests for anyone under 18 must come from a parent or guardian. `[Needs legal review: rules for collecting information about children, such as US COPPA for under-13s, have not been assessed.]`
 
-**How long we keep it.** `[TBD: retention period, and when requests are deleted if no lesson takes place. Needs the coach's decision.]`
+**How long we keep it.** The coach has approved these periods, applied by hand (nothing is automatic):
 
-**Your choices.** You can ask to see, correct or delete your information. `[TBD: how to contact the coach. Depends on whether he approves a public contact email. Until he does, no address is published.]`
+- Requests that don't become a lesson, and their notification emails, are deleted after 90 days. `[confirm: counted from the day the request was received]`
+- For lessons that take place, the original request and its notification email are deleted 90 days after the lesson.
+- Records needed for ongoing lessons, payment recordkeeping, or unresolved refunds or disputes are kept separately, for those purposes only. `[TBD: where these are kept and for how long.]`
+- Deleted items may stay in Tally's Trash until it is emptied, or for a further period. `[VERIFY the wording against Tally's current documentation before publishing.]`
+
+**Your choices.** You can ask to see, correct or delete your information by emailing **optimizedlifestyles88@gmail.com**, the contact the coach has approved for students and privacy questions. `[TBD: response time, and whether and where this address appears on the website. It isn't on the website yet.]`
 
 **Changes.** `[TBD: date and how updates are noted.]`
 
@@ -241,7 +246,7 @@ Run on the coach's forms, before launch approval. Use obviously fake test data a
 
 **Notification**
 
-- [ ] An email reaches the coach's private address for each test, identifies the lesson option (form name or hidden field), and shows every answer including the policy acknowledgment. **⚠ VERIFY**
+- [ ] An email reaches the coach's address for each test, identifies the lesson option (form name or hidden field), and shows every answer including the policy acknowledgment. **⚠ VERIFY**
 - [ ] No notification goes to any other address.
 
 **Hand-off**
@@ -254,8 +259,8 @@ Run on the coach's forms, before launch approval. Use obviously fake test data a
 
 ## 9. Unresolved before launch
 
-- The privacy notice (section 7), including retention, public contact and legal review for children.
+- The privacy notice (section 7). Retention and the public contact are now filled in. Still open: who is responsible for the information, Tally's and PayPal's roles, who else receives payment summaries (they contain no names, contact details or age groups), legal review for children, and an approved final text. **It is not ready to publish.**
 - Whether to add the privacy acknowledgment (field 13).
 - The Tally capabilities and plan limits marked **⚠ VERIFY**.
 - Answers to the "Not specified" items in `pilot-operations.md`, section 1, that the coach wants stated to students (for example the "late" cancellation cut-off).
-- The coach's private notification address and the two form links (held outside the repo).
+- A field-by-field comparison of the two live forms with this spec, including titles and prices on the public pages (not checked: the build environment can't reach `tally.so`).

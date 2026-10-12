@@ -8,18 +8,18 @@ export const brand = {
 };
 
 // Launch control. Real request links activate only when this is exactly `true`
-// AND the lesson's form URL (below) is valid. Keep it `false` until the coach
-// has approved launch; configured URLs alone never turn requests on.
-export const bookingEnabled = false;
+// AND the lesson's form URL (below) is valid. Configured URLs alone never turn
+// requests on. Set to `true` on feature/live-lesson-pilot by explicit authorization;
+// set it back to `false` to return every request button to its preview-only state.
+export const bookingEnabled = true;
 
-// Coach-owned Tally form links, one per lesson option.
+// Coach-owned Tally forms, one per lesson option (keyed by minutes).
 // A link is valid only if it is an https URL on the host tally.so (exact match,
 // no username/password, no custom port). Otherwise that option stays in its
 // explicit "preview only" state and links nowhere.
-// Using the same URL for both options is fine if a single form has a lesson field.
 export const requestForms = {
-  '30': '',
-  '60': '',
+  '30': 'https://tally.so/r/dWLQaV', // 30-minute lesson, $30 USD
+  '60': 'https://tally.so/r/PdM81x', // 60-minute lesson, $40 USD
 };
 
 export const lessons = [

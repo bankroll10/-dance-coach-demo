@@ -2,9 +2,9 @@
 
 **Internal. Not part of the public website.** `scripts/stage-demo.sh` publishes only `index.html`, `styles.css` and `js/`, so this folder is never deployed.
 
-> **This repository is public.** Student-facing business policies may live here. Do **not** commit the coach's notification email, personal contact details, his legal/agreement name, revenue-share terms, student information, or Tally/PayPal credentials. Items marked `[HELD OUTSIDE REPO]` belong in a private note shared between the operator and the coach.
+> **This repository is public.** Student-facing business policies may live here. Do **not** commit the coach's legal/agreement name, revenue-share or other private agreement terms, student information, or Tally/PayPal credentials. The coach has approved one email address for public student/privacy contact (see section 1); it appears in this document and the privacy-notice draft only, and is **not yet on the website**. Items marked `[HELD OUTSIDE REPO]` belong in a private note shared between the operator and the coach.
 
-Nothing in this workflow is automated. The website only links to a coach-owned Tally form (and only after launch is explicitly enabled). Everything after that (calendar checks, time-zone conversion, invoices, payment checks, confirmations, the ledger) is done by hand by the coach or the operator.
+Nothing in this workflow is automated. The website only links to the coach's own Tally forms. Everything after that (calendar checks, time-zone conversion, invoices, payment checks, confirmations, the ledger, and the data cleanup in section 6) is done by hand.
 
 The form itself is specified in [`request-form-spec.md`](request-form-spec.md). That file is the single source of truth for field labels, policy wording and the thank-you message.
 
@@ -19,7 +19,7 @@ The form itself is specified in [`request-form-spec.md`](request-form-spec.md). 
 | Site name | Dance with JSPR |
 | Coach's public handle | @jspr_dances |
 | Coach's name for the agreement | `[HELD OUTSIDE REPO]` |
-| Booking notification email | `[HELD OUTSIDE REPO]` (not on the website; not published without the coach's approval) |
+| Coach's email (booking notifications) | `optimizedlifestyles88@gmail.com`. The coach has **approved it for public student/privacy contact**. That is permission to use it where needed, not a decision to publish it: it is **not on the website** and must not be added without a specific instruction. |
 | Lesson format | FaceTime only. No other platform is offered or advertised. |
 | 30-minute private lesson | $30 USD |
 | 60-minute private lesson | $40 USD |
@@ -49,6 +49,28 @@ These student-facing terms appear on the public page ("Before you request") and 
 
 The website stays preview-only until `bookingEnabled` is set to `true` in `js/content.js` **and** valid `tally.so` form URLs are configured. A person does both, only after the coach approves launch.
 
+### Request forms (coach-owned Tally) and who does what
+
+| Lesson | Price | Form | Site setting |
+| --- | --- | --- | --- |
+| 30 minutes | $30 USD | `https://tally.so/r/dWLQaV` | `requestForms['30']` |
+| 60 minutes | $40 USD | `https://tally.so/r/PdM81x` | `requestForms['60']` |
+
+- The **coach owns the forms** and handles student requests and notifications. His Tally email notifications to himself are on.
+- **The operator** (who maintains the site) receives **payment summaries only**: no student names, no contact details and no children's age groups. The ledger in section 4 is built that way, and the coach shares only its student-free columns.
+- The site has `bookingEnabled = true` **on `feature/live-lesson-pilot` only**. It is not merged and not deployed, and it stays `noindex` until a launch decision.
+
+### Verification status
+
+| Check | Status | Who |
+| --- | --- | --- |
+| The operator submitted a clearly labeled test through each form | Done | **User-reported** |
+| The coach saw each test in Tally and received the notification email | Done | **User-reported** (the coach's confirmation, relayed by the operator; not independently observed) |
+| Each site button opens the right form (30 → `dWLQaV`, 60 → `PdM81x`), in a new tab with `noopener noreferrer`; both prices, durations and policy text unchanged; preview markers gone; nothing submitted by the site | Checked | Automated browser checks on the local build; the Tally links were intercepted, so no request reached Tally |
+| Titles, prices and fields shown on the live Tally pages | **Not checked** | The build environment cannot reach `tally.so` (blocked by its network policy), so the public pages were not inspected |
+| The live forms match [`request-form-spec.md`](request-form-spec.md) field by field (conditional guardian fields, wording, age bands, policy text) | **Not checked** | Needs a person to compare the live forms with the spec |
+| Email delivery, and what the notification email contains | Not independently checked | Relies on the coach's report |
+
 ### Not specified (do not invent; ask the coach before relying on any of these)
 
 | Item | What is unknown |
@@ -60,14 +82,13 @@ The website stays preview-only until `bookingEnabled` is set to `true` in `js/co
 | Technical problems | No policy exists for connection or technical failures. |
 | Guardian absent | What happens if a parent or guardian isn't present for a minor's lesson. |
 | Missed payment | What happens when the 24-hour payment deadline passes (releasing the time is the operating assumption, not a stated policy). |
-| Public contact email | Permission to publish one. Until given, the notification address stays private. |
 | Final agreement | Including revenue share. Needed before the ledger's adjustment column can be used. |
 
 ---
 
 ## 2. Request form
 
-See [`request-form-spec.md`](request-form-spec.md) for the full specification: reusable structure for both lesson options, exact labels, help text, conditional guardian wording, the policy acknowledgment, the thank-you message, a draft privacy notice (not ready to publish), a setup checklist and an end-to-end test checklist.
+The coach's two Tally forms are live and published (see section 1). [`request-form-spec.md`](request-form-spec.md) is the specification they were meant to follow: reusable structure for both lesson options, exact labels, help text, conditional guardian wording, the policy acknowledgment, the thank-you message, a draft privacy notice (**not ready to publish**), a setup checklist and an end-to-end test checklist. Whether the live forms match it has not been checked (see "Verification status").
 
 Operator rules that follow from the confirmed facts:
 
@@ -164,8 +185,9 @@ A minimal shared spreadsheet, **filled in by hand** (nothing updates it automati
 | `revenue_share_adjustment` | `[TBD: calculation per the final agreement]`. Do not fill in until the agreement is final. |
 | `status` | One of the statuses in section 5. |
 | `monthly_settlement` | The settlement month (YYYY-MM) in which this row is settled. Blank until then. |
+| `request_deleted_on` | *Optional.* The date the original Tally request and its notification email were deleted (section 6). Blank until then. Holds no student information. |
 
-Keep the ledger in a private, access-controlled sheet shared only with the parties to the agreement.
+Keep the ledger in a private, access-controlled sheet shared only with the parties to the agreement. The operator receives **payment summaries only**, built from these columns: never student names, contact details or children's age groups.
 
 ---
 
@@ -193,21 +215,44 @@ Keep the ledger in a private, access-controlled sheet shared only with the parti
     - Late cancellations and no-shows are nonrefundable. The "late" cut-off is not specified (see section 1), so the coach confirms what applies before replying.
     - If the **coach** cancels, offer the student another time **or** a refund (their choice). For a refund, issue it from PayPal, then record `refund_usd` and status `refunded`.
 11. **After the lesson**, set status `completed`.
-12. **Monthly settlement:** `[TBD: process per the final agreement]`. At month end, fill in `revenue_share_adjustment` and `monthly_settlement` for that month's rows by hand.
+12. **Data cleanup.** Delete old requests and notification emails on the schedule in section 6. This is manual.
+13. **Monthly settlement:** `[TBD: process per the final agreement]`. At month end, fill in `revenue_share_adjustment` and `monthly_settlement` for that month's rows by hand.
 
 ---
 
-## 6. Inputs still needed
+## 6. Data retention and manual cleanup
 
-For the request form to go live:
+**Approved by the coach** (retention periods):
 
-| Input | Why it's needed |
+- **Unbooked requests** (never became a confirmed lesson: declined, released, abandoned, no reply) and their notification emails are deleted **after 90 days**. `[confirm: counted from the day the request was received]`
+- **Completed lessons:** the original request and its notification email are deleted **90 days after the lesson**.
+- **Kept separately, and not deleted on this schedule:** records needed for ongoing lessons, for payment recordkeeping, or for unresolved refunds or disputes. These are kept for those purposes only. `[TBD: where payment records are kept and for how long. Recordkeeping obligations haven't been assessed.]`
+
+**This cleanup is manual. No automation exists** (no scheduled job, no Tally rule, no mail filter). It happens only when the coach does it, so set a recurring reminder in the coach's own calendar (for example monthly) and keep to it.
+
+**Deleting is two stages.** As reported from Tally's documentation, a deleted item first goes to **Trash**. It is **not** permanently removed until the Trash is emptied, or until a further 90 days pass. "Deleted" is therefore not "gone". **⚠ VERIFY** this in the coach's Tally account; it has not been confirmed here.
+
+### Cleanup steps (the coach, in his own accounts)
+
+1. **List what's due.** In the ledger, find rows that are `declined`, `released`, `cancelled` or unanswered with a request more than 90 days old, and `completed` rows whose `session_date` was more than 90 days ago. Use `request_ref` to find each request in Tally.
+2. **Check the exceptions first.** Don't delete a request that is still needed for an ongoing student, for payment recordkeeping, or for an unresolved refund or dispute. Make sure the record that is needed is kept separately before deleting the original.
+3. **Delete the request in Tally.** It goes to Trash.
+4. **Empty Tally's Trash** to remove those items permanently. If you don't, they remain in Trash until Tally removes them (reported as another 90 days).
+5. **Delete the matching notification email** in the coach's mailbox. Also empty the mailbox's own Trash/Bin if it keeps deleted mail for a while. **⚠ VERIFY** how the coach's mail provider handles deleted items.
+6. **Record it** by filling in `request_deleted_on` in the ledger.
+7. **Never** copy student names, emails or answers into the ledger, the operator's summaries, or this repository.
+
+---
+
+## 7. Remaining launch tasks and inputs
+
+| Item | Notes |
 | --- | --- |
-| **Coach-owned Tally account** and the two form URLs (30- and 60-minute), both on `tally.so` | The site links to them. Together with `bookingEnabled = true` (set by a person after launch approval) they turn requests on. |
-| **Coach's private notification address** `[HELD OUTSIDE REPO]` entered in the coach's Tally settings | Tally emails the coach each request. |
-| **Approved privacy notice** (including retention) | The form collects names, emails and minors' age bands. The draft in the form spec is not ready to publish. |
-| **Public contact route** (only if the coach approves one) | The privacy notice and thank-you page may need a way to reach him. |
-| **Answers to the "Not specified" items** (section 1) that the coach wants applied | Late-cancellation cut-off, timely-cancellation refunds, reschedule details, technical problems, guardian absence, missed payment |
-| **Final agreement** (including revenue share) | Needed before the ledger's adjustment column can be used. |
-| **Launch approval** | The site stays preview-only and `noindex` until a person decides otherwise. |
+| **Compare the live forms with the spec** | A person opens both Tally forms and checks fields, wording, conditional guardian logic, age bands and policy text against `request-form-spec.md`. Also confirm the live titles and prices match (30 min, $30 USD / 60 min, $40 USD). |
+| **Approved privacy notice** | The draft in the form spec is **not ready to publish**. Retention and the public contact are now filled in; the owner's identity, Tally/PayPal details, who else sees summaries, and legal review for children are still open. The form's privacy checkbox (field 13) is added only after the notice is approved. |
+| **Where the privacy notice and contact appear** | The coach approved the email for public student/privacy contact. Whether and where to show it on the website (for example the footer or a privacy page) needs a specific instruction. |
+| **Answers to the "Not specified" items** (section 1) the coach wants applied | Late-cancellation cut-off, timely-cancellation refunds, reschedule details, technical problems, guardian absence, missed payment |
+| **Payment-record retention** | Where and for how long payment records are kept (section 6) |
+| **Launch decision and deployment** | The site is not merged or deployed and stays `noindex`. Deployment, removing `noindex`, and any merge are separate, explicitly authorized steps. |
+| **Final agreement** (including revenue share) | Needed before the ledger's adjustment column can be used. Kept outside this repository. |
 | **Home photo/video** | The home page uses a decorative graphic until one is supplied. |
