@@ -58,7 +58,7 @@ The website stays preview-only until `bookingEnabled` is set to `true` in `js/co
 
 - The **coach owns the forms** and handles student requests and notifications. His Tally email notifications to himself are on.
 - **The operator** (who maintains the site) receives **payment summaries only**: no student names, no contact details and no children's age groups. The ledger in section 4 is built that way, and the coach shares only its student-free columns.
-- The site has `bookingEnabled = true` on `feature/live-lesson-pilot`. It is **not merged to `main`**. It stays `noindex` (which is not access protection: anyone with the address can open the page). Where it is deployed, and the rollback target, are recorded in section 8.
+- The site has `bookingEnabled = true` on `feature/live-lesson-pilot`, deployed as recorded in section 8. It is **not merged to `main`**. It stays `noindex` (which is not access protection: anyone with the address can open the page). Where it is deployed, and the rollback target, are recorded in section 8.
 
 ### Operational decisions (confirmed)
 
@@ -81,6 +81,7 @@ Still **not** done or decided: the privacy notice has **not been legally reviewe
 | Titles, prices and fields shown on the live Tally pages | **Not checked** | The build environment cannot reach `tally.so` (blocked by its network policy), so the public pages were not inspected |
 | The live forms match [`request-form-spec.md`](request-form-spec.md) field by field (conditional guardian fields, wording, age bands, policy text) | **Not checked** | Needs a person to compare the live forms with the spec |
 | Email delivery, and what the notification email contains | Not independently checked | Relies on the coach's report |
+| The deployed site serves the same four files, with the right button-to-form mapping | Checked | Automated browser checks on the hosted URL (section 8) |
 
 ### Not specified (do not invent; ask the coach before relying on any of these)
 
@@ -272,4 +273,23 @@ Keep the ledger in a private, access-controlled sheet shared only with the parti
 
 ## 8. Deployment record
 
-*(Filled in when the pilot is deployed. Until then, nothing here is deployed.)*
+The pilot replaced the old demo at the existing dedicated Netlify site's production address.
+
+| Item | Value |
+| --- | --- |
+| Netlify project | `jspr-dances-demo-preview` |
+| Site ID | `bb67c7c9-4727-4870-92f4-22c22e3760d7` |
+| Live address | https://jspr-dances-demo-preview.netlify.app |
+| **Deploy ID** | `6acc4587a912d25f29d05011` (type: production; published 2026-10-12) |
+| Permanent address for this deploy | https://6acc4587a912d25f29d05011--jspr-dances-demo-preview.netlify.app |
+| Source | `feature/live-lesson-pilot` at `293dd0b` (not merged to `main`) |
+| Files published | `index.html`, `styles.css`, `js/app.js`, `js/content.js` only (via `scripts/stage-demo.sh`) |
+| **Rollback target** | Previous published deploy `6acb0c449f486c16fb7dfce2` (the old demo). Its permanent address, https://6acb0c449f486c16fb7dfce2--jspr-dances-demo-preview.netlify.app, still exists. To roll back, publish that deploy from the project's Deploys page in Netlify. No tooling for this was used or tested here. |
+
+**Access.** The address is **public**: no password, no login. `noindex` asks search engines not to list it, but it is **not access protection**. Anyone with the link can open it and follow the links to the coach's forms.
+
+**What the host adds.** Netlify injects an HTML comment and a small script (`/.netlify/scripts/hud`) into the served page, which shows a floating "Powered by Netlify" badge. This is added by the platform, is not in the repository, and can overlap content at the bottom right on phones. Whether it can be turned off on this plan has not been checked, and no project setting was changed.
+
+**Checked on the hosted site (automated, Chromium at 390px, 360px and 1280px).** HTTPS 200 with all assets loading; no browser errors or failed requests; no horizontal overflow; tap targets at least 44px; the 30-minute / $30 button links to `https://tally.so/r/dWLQaV` and the 60-minute / $40 button to `https://tally.so/r/PdM81x` (new tab, `noopener noreferrer`); preview-only markers gone; all "Before you request" policies visible; `noindex` present; no old demo content; no email address, legal name or agreement terms in the page; no form fields; only GET requests, none to Tally; README, CLAUDE.md, `docs/`, `scripts/` and other repo paths return 404. A click on the 30-minute button opened a new tab at the right URL (Tally was intercepted, so nothing reached it).
+
+**Not checked.** The live Tally pages (titles, prices, fields): the build environment's network policy blocks `tally.so`, so they were not inspected. Whether the live forms match the spec, the coach's email delivery, Safari/iOS, a real device, and a screen reader. Nobody has been told about the launch, and no form was submitted.

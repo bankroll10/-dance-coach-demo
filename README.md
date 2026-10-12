@@ -4,7 +4,7 @@ A small, mobile-first website for private dance lessons with **@jspr_dances**. V
 
 It's a static site: plain HTML, CSS and vanilla JavaScript, with no build step, backend, accounts, analytics or payment code.
 
-> **Status: pilot ready for review. Not merged, not deployed.** On this feature branch `bookingEnabled` is `true` and both lesson buttons link to the coach's own Tally forms. The site stays `noindex` until a launch decision.
+> **Status: pilot deployed to the existing demo site; not merged to `main`.** On this feature branch `bookingEnabled` is `true` and both lesson buttons link to the coach's own Tally forms. It is live at https://jspr-dances-demo-preview.netlify.app (public, no password). The site is `noindex`, which keeps it out of search results but is **not access protection**. Deployment details and the rollback target are in `docs/pilot-operations.md`, section 8.
 
 ## Run it locally
 
@@ -51,7 +51,7 @@ All in **`js/content.js`**: site name and handle, the lesson options and prices,
 ./scripts/stage-demo.sh   # copies only index.html, styles.css and js/ into dist/ (gitignored)
 ```
 
-Docs, scripts, git data and `docs/` are never copied. `netlify.toml` points at `dist/`. Deployment needs explicit authorization. The site is marked `noindex` until a launch decision is made.
+Docs, scripts, git data and `docs/` are never copied. `netlify.toml` points at `dist/`. Deployment needs explicit authorization. The site is marked `noindex` until a launch decision is made (not access protection).
 
 ## What's not here
 
@@ -64,5 +64,5 @@ The list is in section 7 of [`docs/pilot-operations.md`](docs/pilot-operations.m
 ## Verification status
 
 - **User-reported:** labeled test submissions through each form reached the coach in Tally and by email.
-- **Checked on the local build:** each button opens the right form in a new tab; prices, policies and FaceTime wording are unchanged; the site makes no submissions; the staged output holds only the four public files.
+- **Checked on the local build and on the hosted site:** each button opens the right form in a new tab; prices, policies and FaceTime wording are unchanged; the site makes no submissions; only the four public files are served, and internal docs return 404.
 - **Not checked:** the live Tally pages themselves (the build environment can't reach `tally.so`), and whether the live forms match the spec field by field.
